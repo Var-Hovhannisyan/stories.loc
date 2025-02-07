@@ -29,22 +29,6 @@ class StoryController extends Controller
         return response()->json(['message' => 'Story created', 'story' => $story->toArray()], 201);
     }
 
-    public function approve(Story $story)
-    {
-        try {
-            // Update story approval status
-            $story->update(['is_approved' => true]);
-
-            // Optionally, broadcast the approval to notify others (if needed)
-//            broadcast(new StoryApproved($story));
-
-            return response()->json(['success' => true]);
-        } catch (\Exception $e) {
-            // Handle any errors and respond accordingly
-            return response()->json(['success' => false, 'error' => $e->getMessage()]);
-        }
-    }
-
     public function approved(int $storyId)
     {
         $story = $this->storyActionService->approveStory($storyId);

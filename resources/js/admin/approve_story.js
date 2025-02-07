@@ -11,19 +11,23 @@ function fetchStories() {
 }
 
 function updateStoriesUI(stories) {
-    let container = document.getElementById('stories-container');
-    if (!container) return;
+    let containers = document.querySelector('#stories-container');
+    if (!containers) return;
 
     if (stories.length === 0) {
-        container.innerHTML = `<p class="text-gray-500">No approved stories available.</p>`;
+        containers.forEach((container) => {
+            container.innerHTML = `<p class="text-gray-500">No approved stories available.</p>`;
+        })
     } else {
-        container.innerHTML = stories.map(story => `
-            <div class="p-4 border-b">
+        containers.forEach((container) => {
+            container.innerHTML = stories.map(story => `
+            <div class="p-4 border-b w-full">
                 <h2 class="text-xl font-semibold">${story.title}</h2>
                 <p class="text-gray-700">${story.description}</p>
                 <p class="text-sm text-gray-500">Published on ${new Date(story.created_at).toLocaleDateString()}</p>
             </div>
         `).join('');
+        })
     }
 }
 
